@@ -1,0 +1,289 @@
+2026-09-16 08:27:10 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:27:10 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 08:27:10 [INFO]   📡 Port    : 5000
+2026-09-16 08:27:10 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 08:27:10 [INFO]   🔧 Mode    : development
+2026-09-16 08:27:10 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:27:10 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 08:27:11 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 08:27:11 [INFO] ✅ Cron jobs aktif
+2026-09-16 08:27:11 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 08:27:11 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 08:28:47 [INFO] [Deposit] Created request #1 (DEP-1-1789522127958) for Agent #1 with unique amount Rp 50.958
+2026-09-16 08:28:53 [INFO] [Deposit] Approved request #1 for Agent #1 by admin
+2026-09-16 08:37:09 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:38:09 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:38:29 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:38:49 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:39:09 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:39:29 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:39:49 [WARN] [WhatsApp] Koneksi terputus: QR refs attempts ended. Reconnect: true
+2026-09-16 08:39:55 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:40:55 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:41:15 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:41:26 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:41:35 [INFO] [WhatsApp] QR Code baru digenerate untuk pairing
+2026-09-16 08:41:41 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:41:41 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 08:41:41 [INFO]   📡 Port    : 5000
+2026-09-16 08:41:41 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 08:41:41 [INFO]   🔧 Mode    : development
+2026-09-16 08:41:41 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:41:41 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 08:41:41 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 08:41:41 [INFO] ✅ Cron jobs aktif
+2026-09-16 08:41:41 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 08:41:41 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 08:41:56 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:42:02 [INFO] [WhatsApp] Menutup socket lama sebelum inisialisasi ulang...
+2026-09-16 08:42:03 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:43:03 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:43:23 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:43:43 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:44:03 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:44:23 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 08:44:43 [WARN] [WhatsApp] Koneksi terputus (kode 408: QR refs attempts ended). Reconnect: true
+2026-09-16 08:46:25 [ERROR] ReferenceError: D:\Juragan-Pulsa\views\admin\providers.ejs:23
+    21|   <!-- Gateway Stats Overview Cards -->
+    22|   <% const mainProvider = providers.length > 0 ? providers[0] : null; %>
+ >> 23|   <% const mainStats = mainProvider && stats[mainProvider.id] ? stats[mainProvider.id] : { products: { total: 0, active: 0 }, transactions: { total: 0, success: 0, pending: 0, failed: 0 }, lastSync: null }; %>
+    24| 
+    25|   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    26|     
+
+stats is not defined
+    at eval ("D:\\Juragan-Pulsa\\views\\admin\\providers.ejs":16:42)
+    at providers (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:274:36)
+    at exports.renderFile [as engine] (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:491:10)
+    at View.render (D:\Juragan-Pulsa\node_modules\express\lib\view.js:135:8)
+    at tryRender (D:\Juragan-Pulsa\node_modules\express\lib\application.js:657:10)
+    at Function.render (D:\Juragan-Pulsa\node_modules\express\lib\application.js:609:3)
+    at ServerResponse.render (D:\Juragan-Pulsa\node_modules\express\lib\response.js:1049:7)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:16:7
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+2026-09-16 08:46:30 [ERROR] ReferenceError: D:\Juragan-Pulsa\views\admin\providers.ejs:23
+    21|   <!-- Gateway Stats Overview Cards -->
+    22|   <% const mainProvider = providers.length > 0 ? providers[0] : null; %>
+ >> 23|   <% const mainStats = mainProvider && stats[mainProvider.id] ? stats[mainProvider.id] : { products: { total: 0, active: 0 }, transactions: { total: 0, success: 0, pending: 0, failed: 0 }, lastSync: null }; %>
+    24| 
+    25|   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    26|     
+
+stats is not defined
+    at eval ("D:\\Juragan-Pulsa\\views\\admin\\providers.ejs":16:42)
+    at providers (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:274:36)
+    at exports.renderFile [as engine] (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:491:10)
+    at View.render (D:\Juragan-Pulsa\node_modules\express\lib\view.js:135:8)
+    at tryRender (D:\Juragan-Pulsa\node_modules\express\lib\application.js:657:10)
+    at Function.render (D:\Juragan-Pulsa\node_modules\express\lib\application.js:609:3)
+    at ServerResponse.render (D:\Juragan-Pulsa\node_modules\express\lib\response.js:1049:7)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:16:7
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+2026-09-16 08:46:40 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:46:40 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 08:46:40 [INFO]   📡 Port    : 5000
+2026-09-16 08:46:40 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 08:46:40 [INFO]   🔧 Mode    : development
+2026-09-16 08:46:40 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:46:40 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 08:46:40 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 08:46:40 [INFO] ✅ Cron jobs aktif
+2026-09-16 08:46:40 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 08:46:40 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 08:46:45 [ERROR] SqliteError: no such column: "success" - should this be a string literal in single-quotes?
+    at Database.prepare (D:\Juragan-Pulsa\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:59:26
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at requireAdminLogin (D:\Juragan-Pulsa\middleware\adminAuth.js:9:12)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Juragan-Pulsa\node_modules\express\lib\router\index.js:284:15
+2026-09-16 08:46:51 [ERROR] SqliteError: no such column: "success" - should this be a string literal in single-quotes?
+    at Database.prepare (D:\Juragan-Pulsa\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:59:26
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at requireAdminLogin (D:\Juragan-Pulsa\middleware\adminAuth.js:9:12)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Juragan-Pulsa\node_modules\express\lib\router\index.js:284:15
+2026-09-16 08:47:04 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:47:04 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 08:47:04 [INFO]   📡 Port    : 5000
+2026-09-16 08:47:04 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 08:47:04 [INFO]   🔧 Mode    : development
+2026-09-16 08:47:04 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:47:04 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 08:47:04 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 08:47:04 [INFO] ✅ Cron jobs aktif
+2026-09-16 08:47:04 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 08:47:04 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 08:51:31 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:51:31 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 08:51:31 [INFO]   📡 Port    : 5000
+2026-09-16 08:51:31 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 08:51:31 [INFO]   🔧 Mode    : development
+2026-09-16 08:51:31 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 08:51:31 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 08:51:31 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 08:51:31 [INFO] ✅ Cron jobs aktif
+2026-09-16 08:51:31 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 08:51:31 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 09:04:16 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:04:16 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 09:04:16 [INFO]   📡 Port    : 5000
+2026-09-16 09:04:16 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 09:04:16 [INFO]   🔧 Mode    : development
+2026-09-16 09:04:16 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:04:16 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 09:04:16 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 09:04:16 [INFO] ✅ Cron jobs aktif
+2026-09-16 09:04:16 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 09:04:16 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 09:04:26 [INFO] [Deposit] Created request #2 (DEP-1-1789524266895) for Agent #1 with unique amount Rp 50.895
+2026-09-16 09:08:53 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:08:53 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 09:08:53 [INFO]   📡 Port    : 5000
+2026-09-16 09:08:53 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 09:08:53 [INFO]   🔧 Mode    : development
+2026-09-16 09:08:53 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:08:53 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 09:08:53 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 09:08:53 [INFO] ✅ Cron jobs aktif
+2026-09-16 09:08:53 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 09:08:53 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 09:09:06 [INFO] [Deposit] Created request #3 (DEP-1-1789524546356) for Agent #1 with unique amount Rp 65.356
+2026-09-16 09:09:06 [INFO] [Payment Gateway Webhook] Menerima notifikasi dari [DANA]: "DANA - Uang Masuk Pembayaran sebesar Rp 65.356 dari Budi Konter berhasil diterima."
+2026-09-16 09:09:06 [INFO] [Payment Gateway Webhook] Nominal terdeteksi: Rp 65.356. Mencari tiket deposit pending...
+2026-09-16 09:09:06 [INFO] [Payment Gateway Webhook] MATCH! Menyetujui deposit #3 (DEP-1-1789524546356) untuk Agen #1
+2026-09-16 09:09:06 [INFO] [Deposit] Approved request #3 for Agent #1 by Auto Gateway (DANA)
+2026-09-16 09:09:06 [WARN] [WhatsApp] Tidak dapat mengirim pesan (WhatsApp belum terhubung) ke: 081234567890
+2026-09-16 09:16:50 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:16:50 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 09:16:50 [INFO]   📡 Port    : 5000
+2026-09-16 09:16:50 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 09:16:50 [INFO]   🔧 Mode    : development
+2026-09-16 09:16:50 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:16:50 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 09:16:50 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 09:16:50 [INFO] ✅ Cron jobs aktif
+2026-09-16 09:16:50 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 09:16:50 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 09:23:06 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:23:06 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 09:23:06 [INFO]   📡 Port    : 5000
+2026-09-16 09:23:06 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 09:23:06 [INFO]   🔧 Mode    : development
+2026-09-16 09:23:06 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:23:06 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 09:23:07 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 09:23:07 [INFO] ✅ Cron jobs aktif
+2026-09-16 09:23:07 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 09:23:07 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 09:28:08 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:28:08 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 09:28:08 [INFO]   📡 Port    : 5000
+2026-09-16 09:28:08 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 09:28:08 [INFO]   🔧 Mode    : development
+2026-09-16 09:28:08 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 09:28:08 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 09:28:08 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 09:28:08 [INFO] ✅ Cron jobs aktif
+2026-09-16 09:28:08 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 09:28:08 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 10:15:05 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 10:15:05 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 10:15:05 [INFO]   📡 Port    : 5000
+2026-09-16 10:15:05 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 10:15:05 [INFO]   🔧 Mode    : development
+2026-09-16 10:15:05 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 10:15:05 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 10:15:05 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 10:15:05 [INFO] ✅ Cron jobs aktif
+2026-09-16 10:15:05 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 10:15:05 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 10:29:58 [ERROR] SyntaxError: Bad escaped character in JSON at position 12
+    at JSON.parse (<anonymous>)
+    at parse (D:\Juragan-Pulsa\node_modules\body-parser\lib\types\json.js:96:19)
+    at D:\Juragan-Pulsa\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+    at invokeCallback (D:\Juragan-Pulsa\node_modules\raw-body\index.js:238:16)
+    at done (D:\Juragan-Pulsa\node_modules\raw-body\index.js:227:7)
+    at IncomingMessage.onEnd (D:\Juragan-Pulsa\node_modules\raw-body\index.js:287:7)
+    at IncomingMessage.emit (node:events:524:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+2026-09-16 10:30:50 [INFO] [WhatsApp] QR Code baru dihasilkan (https://wa.me/settings/li...)
+2026-09-16 10:42:27 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 10:42:27 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 10:42:27 [INFO]   📡 Port    : 5000
+2026-09-16 10:42:27 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 10:42:27 [INFO]   🔧 Mode    : development
+2026-09-16 10:42:27 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 10:42:27 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 10:42:27 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 10:42:27 [INFO] ✅ Cron jobs aktif
+2026-09-16 10:42:27 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 10:42:27 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 11:24:09 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:24:09 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 11:24:09 [INFO]   📡 Port    : 5000
+2026-09-16 11:24:09 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 11:24:09 [INFO]   🔧 Mode    : development
+2026-09-16 11:24:09 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:24:09 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 11:24:09 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 11:24:09 [INFO] ✅ Cron jobs aktif
+2026-09-16 11:24:09 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 11:24:09 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 11:29:18 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:29:18 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 11:29:18 [INFO]   📡 Port    : 5000
+2026-09-16 11:29:18 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 11:29:18 [INFO]   🔧 Mode    : development
+2026-09-16 11:29:18 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:29:18 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 11:29:18 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 11:29:18 [INFO] ✅ Cron jobs aktif
+2026-09-16 11:29:18 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 11:29:18 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 11:31:13 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:31:13 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 11:31:13 [INFO]   📡 Port    : 5000
+2026-09-16 11:31:13 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 11:31:13 [INFO]   🔧 Mode    : development
+2026-09-16 11:31:13 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:31:13 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 11:31:13 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 11:31:13 [INFO] ✅ Cron jobs aktif
+2026-09-16 11:31:13 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 11:31:13 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 11:34:07 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:34:07 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 11:34:07 [INFO]   📡 Port    : 5000
+2026-09-16 11:34:07 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 11:34:07 [INFO]   🔧 Mode    : development
+2026-09-16 11:34:07 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:34:07 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 11:34:07 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 11:34:07 [INFO] ✅ Cron jobs aktif
+2026-09-16 11:34:07 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 11:34:07 [INFO]   🔌 API    : http://localhost:5000/api
+2026-09-16 11:36:05 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:36:05 [INFO]   🚀 Juragan Pulsa Server v1.0.0
+2026-09-16 11:36:05 [INFO]   📡 Port    : 5000
+2026-09-16 11:36:05 [INFO]   🌐 URL     : http://localhost:5000
+2026-09-16 11:36:05 [INFO]   🔧 Mode    : development
+2026-09-16 11:36:05 [INFO] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-09-16 11:36:05 [INFO] [Cron] Menginisialisasi scheduled tasks...
+2026-09-16 11:36:05 [INFO] ✅ [Cron] Semua scheduler aktif
+2026-09-16 11:36:05 [INFO] ✅ Cron jobs aktif
+2026-09-16 11:36:05 [INFO]   📋 Admin  : http://localhost:5000/admin
+2026-09-16 11:36:05 [INFO]   🔌 API    : http://localhost:5000/api

@@ -1,0 +1,71 @@
+2026-09-16 08:46:25 [ERROR] ReferenceError: D:\Juragan-Pulsa\views\admin\providers.ejs:23
+    21|   <!-- Gateway Stats Overview Cards -->
+    22|   <% const mainProvider = providers.length > 0 ? providers[0] : null; %>
+ >> 23|   <% const mainStats = mainProvider && stats[mainProvider.id] ? stats[mainProvider.id] : { products: { total: 0, active: 0 }, transactions: { total: 0, success: 0, pending: 0, failed: 0 }, lastSync: null }; %>
+    24| 
+    25|   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    26|     
+
+stats is not defined
+    at eval ("D:\\Juragan-Pulsa\\views\\admin\\providers.ejs":16:42)
+    at providers (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:274:36)
+    at exports.renderFile [as engine] (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:491:10)
+    at View.render (D:\Juragan-Pulsa\node_modules\express\lib\view.js:135:8)
+    at tryRender (D:\Juragan-Pulsa\node_modules\express\lib\application.js:657:10)
+    at Function.render (D:\Juragan-Pulsa\node_modules\express\lib\application.js:609:3)
+    at ServerResponse.render (D:\Juragan-Pulsa\node_modules\express\lib\response.js:1049:7)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:16:7
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+2026-09-16 08:46:30 [ERROR] ReferenceError: D:\Juragan-Pulsa\views\admin\providers.ejs:23
+    21|   <!-- Gateway Stats Overview Cards -->
+    22|   <% const mainProvider = providers.length > 0 ? providers[0] : null; %>
+ >> 23|   <% const mainStats = mainProvider && stats[mainProvider.id] ? stats[mainProvider.id] : { products: { total: 0, active: 0 }, transactions: { total: 0, success: 0, pending: 0, failed: 0 }, lastSync: null }; %>
+    24| 
+    25|   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    26|     
+
+stats is not defined
+    at eval ("D:\\Juragan-Pulsa\\views\\admin\\providers.ejs":16:42)
+    at providers (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:274:36)
+    at exports.renderFile [as engine] (D:\Juragan-Pulsa\node_modules\ejs\lib\ejs.js:491:10)
+    at View.render (D:\Juragan-Pulsa\node_modules\express\lib\view.js:135:8)
+    at tryRender (D:\Juragan-Pulsa\node_modules\express\lib\application.js:657:10)
+    at Function.render (D:\Juragan-Pulsa\node_modules\express\lib\application.js:609:3)
+    at ServerResponse.render (D:\Juragan-Pulsa\node_modules\express\lib\response.js:1049:7)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:16:7
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+2026-09-16 08:46:45 [ERROR] SqliteError: no such column: "success" - should this be a string literal in single-quotes?
+    at Database.prepare (D:\Juragan-Pulsa\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:59:26
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at requireAdminLogin (D:\Juragan-Pulsa\middleware\adminAuth.js:9:12)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Juragan-Pulsa\node_modules\express\lib\router\index.js:284:15
+2026-09-16 08:46:51 [ERROR] SqliteError: no such column: "success" - should this be a string literal in single-quotes?
+    at Database.prepare (D:\Juragan-Pulsa\node_modules\better-sqlite3\lib\methods\wrappers.js:5:21)
+    at D:\Juragan-Pulsa\routes\admin\providers.js:59:26
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at requireAdminLogin (D:\Juragan-Pulsa\middleware\adminAuth.js:9:12)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Juragan-Pulsa\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Juragan-Pulsa\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Juragan-Pulsa\node_modules\express\lib\router\index.js:284:15
+2026-09-16 10:29:58 [ERROR] SyntaxError: Bad escaped character in JSON at position 12
+    at JSON.parse (<anonymous>)
+    at parse (D:\Juragan-Pulsa\node_modules\body-parser\lib\types\json.js:96:19)
+    at D:\Juragan-Pulsa\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+    at invokeCallback (D:\Juragan-Pulsa\node_modules\raw-body\index.js:238:16)
+    at done (D:\Juragan-Pulsa\node_modules\raw-body\index.js:227:7)
+    at IncomingMessage.onEnd (D:\Juragan-Pulsa\node_modules\raw-body\index.js:287:7)
+    at IncomingMessage.emit (node:events:524:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
