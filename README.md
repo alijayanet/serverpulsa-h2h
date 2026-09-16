@@ -76,51 +76,6 @@ Aplikasi ini dikembangkan dan dikelola secara profesional oleh:
 
 ---
 
-## 📸 Tampilan Antarmuka (Showcase)
-
-### 💻 Web Admin Dashboard
-
-```
-┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ JURAGAN PULSA H2H      [ 🟢 Saldo Digiflazz: Rp 2.450.000 ]   [ 🔄 Sync ]   [ 👤 Admin ] │
-├─────────────────────────────────────────────────────────────────────────────────────────────┤
-│  [ 🔌 Saldo Digiflazz ]  [ ⚡ Transaksi Hari Ini ]  [ 💰 Volume Omset ]  [ 📈 Margin Profit ] │
-│      Rp 2.450.000               142 Trx                Rp 3.850.000            Rp 284.000   │
-├──────────────────────────────────────────────────────┬──────────────────────────────────────┤
-│  📊 Grafik Volume Transaksi (7 Hari Terakhir)        │  💰 5 Tiket Deposit Pending Terkini   │
-│  [========================================] 89 Sukses│  • DEP-001  Budi Cell   Rp 100.245 [✓]│
-│                                                      │  • DEP-002  Ali Konter  Rp 50.812  [✓]│
-├──────────────────────────────────────────────────────┴──────────────────────────────────────┤
-│  📋 10 Transaksi Live Terakhir (Realtime Feed)                                               │
-│  • JP-019284  |  Telkomsel 10.000  |  081234567890  |  Rp 11.500  |  [ SUKSES ]  |  SN: ... │
-│  • JP-019285  |  Token PLN 50.000  |  142839401923  |  Rp 51.500  |  [ SUKSES ]  |  SN: ... │
-└─────────────────────────────────────────────────────────────────────────────────────────────┘
-```
-
-### 📱 Android APK Native (Dual-Role)
-
-```
-       [ PORTAL AGEN ]                             [ PORTAL ADMIN ]
- ┌─────────────────────────┐                 ┌─────────────────────────┐
- │ 🏠 Juragan Pulsa        │                 │ ⚙️ Admin Control Hub    │
- │ Saldo: Rp 450.000       │                 │ Saldo Digi: Rp 2.450.000│
- │ [ Isi Saldo / QRIS ]    │                 │ Omset: Rp 3.850.000     │
- ├─────────────────────────┤                 ├─────────────────────────┤
- │ 📱 Pulsa  🌐 Paket Data │                 │ 👥 28 Mitra Agen Aktif  │
- │ ⚡ PLN    🎮 Game       │                 │ ⏳ 3 Deposit Menunggu   │
- │ 💳 E-Money 🏥 BPJS      │                 │ 🔄 Sync Katalog H2H     │
- ├─────────────────────────┤                 ├─────────────────────────┤
- │ 🎯 0812-8899-0011       │                 │ 📡 Notification Gateway │
- │ [🔴 Telkomsel Terdeteksi│                 │ Status: 🟢 Aktif 24 Jam │
- │ • Tsel 5.000   Rp 6.500 │                 │ Auto Approve: DANA, BCA │
- │ • Tsel 10.000  Rp 11.500│                 │                         │
- ├─────────────────────────┤                 ├─────────────────────────┤
- │ 🖨️ Cetak Struk Bluetooth│                 │ 🚀 In-App Version Update│
- └─────────────────────────┘                 └─────────────────────────┘
-```
-
----
-
 ## 🏗️ Arsitektur Sistem
 
 ```mermaid
