@@ -181,7 +181,7 @@ cd serverpulsa-h2h
 npm install
 
 # 3. Setup file konfigurasi environment
-cp .env.example .env
+cp env.example.txt .env
 ```
 
 Sesuaikan isi `.env` sesuai server Anda:
