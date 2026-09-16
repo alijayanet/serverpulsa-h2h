@@ -17,10 +17,20 @@
   </div>
 
   <!-- Filter Card (Mobile Responsive Grid) -->
+  <!-- Filter Card (Mobile Responsive Grid) -->
   <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
-    <form action="/admin/transactions" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+    <form action="/admin/transactions" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5">
       <div>
         <input type="text" name="q" value="<%= filter.q || '' %>" placeholder="Cari Ref ID, Target, Produk..." class="input-fintech w-full" />
+      </div>
+
+      <div>
+        <select name="channel" class="input-fintech w-full">
+          <option value="">Semua Channel</option>
+          <option value="web_public" <%= filter.channel === 'web_public' ? 'selected' : '' %>>🌐 Web Publik</option>
+          <option value="app" <%= filter.channel === 'app' ? 'selected' : '' %>>📱 APK Agen</option>
+          <option value="wa" <%= filter.channel === 'wa' ? 'selected' : '' %>>💬 WhatsApp Bot</option>
+        </select>
       </div>
 
       <div>
@@ -55,7 +65,7 @@
           <tr>
             <th>ID</th>
             <th>Ref ID / Waktu</th>
-            <th>Agen</th>
+            <th>Agen / Sumber</th>
             <th>Produk</th>
             <th>Tujuan</th>
             <th>Harga Jual</th>
@@ -77,8 +87,16 @@
                   <p class="text-[10px] text-slate-400 font-mono mt-0.5"><%= formatDateTime(t.created_at) %></p>
                 </td>
                 <td>
-                  <div class="font-bold text-xs text-slate-900 dark:text-white"><%= t.agent_name || 'Admin' %></div>
-                  <div class="text-[10px] text-slate-400 font-mono"><%= t.agent_phone || '-' %></div>
+                  <% if (t.channel === 'web_public') { %>
+                    <div class="font-bold text-xs text-cyan-600 dark:text-cyan-400 flex items-center gap-1">🌐 Web Storefront</div>
+                    <span class="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-mono">Pembeli Publik</span>
+                  <% } else if (t.agent_name) { %>
+                    <div class="font-bold text-xs text-slate-900 dark:text-white"><%= t.agent_name %></div>
+                    <div class="text-[10px] text-slate-400 font-mono"><%= t.agent_phone || '-' %></div>
+                  <% } else { %>
+                    <div class="font-bold text-xs text-slate-900 dark:text-white">Admin</div>
+                    <span class="text-[10px] text-slate-400 font-mono">Manual</span>
+                  <% } %>
                 </td>
                 <td>
                   <div class="text-xs font-semibold text-slate-800 dark:text-slate-200 max-w-[150px] truncate" title="<%= t.product_name %>"><%= t.product_name %></div>
@@ -97,9 +115,9 @@
                     <span class="badge-status badge-status-success">
                       <span class="dot-pulse dot-pulse-success"></span> Sukses
                     </span>
-                  <% } else if (t.status === 'pending') { %>
+                  <% } else if (t.status === 'pending' || t.status === 'processing') { %>
                     <span class="badge-status badge-status-pending">
-                      <span class="dot-pulse dot-pulse-pending"></span> Pending
+                      <span class="dot-pulse dot-pulse-pending"></span> <%= t.status === 'processing' ? 'Proses' : 'Pending' %>
                     </span>
                   <% } else { %>
                     <span class="badge-status badge-status-failed">
@@ -118,6 +136,7 @@
             </tr>
           <% } %>
         </tbody>
+
       </table>
     </div>
 
