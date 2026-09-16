@@ -248,9 +248,22 @@ function calculateAgentPrice(product, agent) {
     sellPrice += group.markup_flat;
   }
   if (group.markup_pct) {
-    sellPrice += Math.round((sellPrice * group.markup_pct) / 100);
+    sellPrice += Math.round(product.price_modal * (group.markup_pct / 100));
   }
   return sellPrice;
+}
+
+/**
+ * Terapkan default markup ke seluruh produk di tabel products
+ * @param {number} markup
+ */
+function applyGlobalMarkup(markup) {
+  const safeMarkup = Math.max(0, parseInt(markup || 0, 10));
+  const res = db.prepare(`
+    UPDATE products
+    SET markup = ?, price_sell = price_modal + ?
+  `).run(safeMarkup, safeMarkup);
+  return res.changes;
 }
 
 module.exports = {
@@ -260,6 +273,7 @@ module.exports = {
   listBrands,
   getProductBySku,
   setMarkup,
+  applyGlobalMarkup,
   toggleProduct,
   calculateAgentPrice,
 };

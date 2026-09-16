@@ -114,7 +114,15 @@ router.post('/settings', requireAdminLogin, (req, res) => {
       );
     }
 
-    req.session.flash = { type: 'success', message: 'Pengaturan sistem, QRIS, & Versi Aplikasi berhasil disimpan.' };
+    // Terapkan default margin ke seluruh produk di database
+    const { applyGlobalMarkup } = require('../../services/productService');
+    const safeMarkup = parseInt(digiflazz_markup || '2000', 10);
+    const updatedCount = applyGlobalMarkup(safeMarkup);
+
+    req.session.flash = { 
+      type: 'success', 
+      message: `Pengaturan berhasil disimpan. Margin Rp ${safeMarkup.toLocaleString('id-ID')} telah diterapkan ke ${updatedCount} produk.` 
+    };
   } catch (err) {
     req.session.flash = { type: 'error', message: err.message };
   }

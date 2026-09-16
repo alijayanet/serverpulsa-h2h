@@ -87,4 +87,36 @@ router.post('/products/:sku/toggle', requireAdminLogin, (req, res) => {
   res.redirect('/admin/products');
 });
 
+// POST /admin/products/bulk-markup (Update margin massal)
+router.post('/products/bulk-markup', requireAdminLogin, (req, res) => {
+  const { markup, category } = req.body;
+  const safeMarkup = Math.max(0, parseInt(markup || 0, 10));
+  const { applyGlobalMarkup } = require('../../services/productService');
+  const db = require('../../config/database');
+  const { setSetting } = require('../../config/settingsManager');
+
+  try {
+    let count;
+    if (category) {
+      const result = db.prepare(`
+        UPDATE products
+        SET markup = ?, price_sell = price_modal + ?
+        WHERE category = ?
+      `).run(safeMarkup, safeMarkup, category);
+      count = result.changes;
+    } else {
+      count = applyGlobalMarkup(safeMarkup);
+      setSetting('digiflazz_markup', String(safeMarkup));
+    }
+
+    req.session.flash = {
+      type: 'success',
+      message: `Berhasil mengubah margin menjadi Rp ${safeMarkup.toLocaleString('id-ID')} untuk ${count} produk${category ? ' kategori ' + category : ''}.`
+    };
+  } catch (err) {
+    req.session.flash = { type: 'error', message: err.message };
+  }
+  res.redirect('/admin/products');
+});
+
 module.exports = router;
