@@ -129,21 +129,25 @@ app.use((req, res, next) => {
   next();
 });
 
-// ── Routes: Admin Dashboard ───────────────────────────────────────────────────
+// ── Routes: Admin Dashboard & Auth ──────────────────────────────────────────
 const adminAuthRouter = require('./routes/admin/auth');
 const adminDashboardRouter = require('./routes/admin/dashboard');
 const adminAgentsRouter = require('./routes/admin/agents');
 const adminTransactionsRouter = require('./routes/admin/transactions');
+const adminPublicOrdersRouter = require('./routes/admin/publicOrders');
 const adminProductsRouter = require('./routes/admin/products');
 const adminProvidersRouter = require('./routes/admin/providers');
 const adminDepositsRouter = require('./routes/admin/deposits');
 const adminReportsRouter = require('./routes/admin/reports');
 const adminSettingsRouter = require('./routes/admin/settings');
 
+// Admin Auth (Dukungan /login dan /admin/login)
+app.use('/', adminAuthRouter);
 app.use('/admin', adminAuthRouter);
 app.use('/admin', adminDashboardRouter);
 app.use('/admin', adminAgentsRouter);
 app.use('/admin', adminTransactionsRouter);
+app.use('/admin', adminPublicOrdersRouter);
 app.use('/admin', adminProductsRouter);
 app.use('/admin', adminProvidersRouter);
 app.use('/admin', adminDepositsRouter);
@@ -171,8 +175,17 @@ app.use('/api/app', appVersionRouter);
 const webhookRouter = require('./routes/webhook');
 app.use('/webhook', webhookRouter);
 
-// ── Root Redirect ──────────────────────────────────────────────────────────────
-app.get('/', (req, res) => res.redirect('/admin'));
+// ── Routes: Web Publik Direct Top-Up (Root URL '/') ─────────────────────────
+try {
+  const publicStoreRouter = require('./routes/public/store');
+  app.use('/', publicStoreRouter);
+} catch (e) {
+  logger.warn('Public store router tidak tersedia, menggunakan fallback route:', e.message);
+  app.get('/', (req, res) => {
+    if (req.session && req.session.adminId) return res.redirect('/admin/dashboard');
+    return res.redirect('/login');
+  });
+}
 
 // ── 404 Handler ────────────────────────────────────────────────────────────────
 app.use((req, res) => {
@@ -180,11 +193,15 @@ app.use((req, res) => {
   if (isApi) {
     return res.status(404).json({ success: false, error: 'Endpoint tidak ditemukan' });
   }
-  res.status(404).render('error', {
-    title: '404 - Halaman Tidak Ditemukan',
-    message: 'Halaman yang Anda cari tidak ditemukan.',
-    code: 404
-  });
+  const errorView = path.join(__dirname, 'views', 'error.ejs');
+  if (fs.existsSync(errorView)) {
+    return res.status(404).render('error', {
+      title: '404 - Halaman Tidak Ditemukan',
+      message: 'Halaman yang Anda cari tidak ditemukan.',
+      code: 404
+    });
+  }
+  return res.status(404).send('<h1>404 Not Found</h1><p><a href="/login">Ke Halaman Login</a></p>');
 });
 
 // ── Global Error Handler ───────────────────────────────────────────────────────
@@ -194,11 +211,15 @@ app.use((err, req, res, next) => {
   if (isApi) {
     return res.status(500).json({ success: false, error: 'Terjadi kesalahan server' });
   }
-  res.status(500).render('error', {
-    title: '500 - Server Error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Terjadi kesalahan server.',
-    code: 500
-  });
+  const errorView = path.join(__dirname, 'views', 'error.ejs');
+  if (fs.existsSync(errorView)) {
+    return res.status(500).render('error', {
+      title: '500 - Server Error',
+      message: process.env.NODE_ENV === 'development' ? err.message : 'Terjadi kesalahan server.',
+      code: 500
+    });
+  }
+  return res.status(500).send('<h1>500 Server Error</h1><p><a href="/login">Ke Halaman Login</a></p>');
 });
 
 // ── Pastikan folder uploads & downloads tersedia ──────────────────────────────

@@ -9,7 +9,7 @@ function requireAdminLogin(req, res, next) {
     return next();
   }
   req.session.returnTo = req.originalUrl;
-  res.redirect('/admin/login');
+  res.redirect('/login');
 }
 
 const db = require('../config/database');

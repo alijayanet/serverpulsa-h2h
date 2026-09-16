@@ -108,6 +108,25 @@ function normalizePhone(phone) {
 }
 
 /**
+ * Normalisasi nomor HP ke format WhatsApp internasional (628xxxxxxxx)
+ * @param {string} phone
+ * @returns {string} contoh: "6281947215703"
+ */
+function formatWaNumber(phone) {
+  let digits = String(phone || '').replace(/\D/g, '');
+  if (!digits) return '';
+  if (digits.startsWith('0')) {
+    digits = '62' + digits.slice(1);
+  } else if (digits.startsWith('8')) {
+    digits = '62' + digits;
+  } else if (!digits.startsWith('62') && digits.length >= 8) {
+    digits = '62' + digits;
+  }
+  return digits;
+}
+
+
+/**
  * Truncate string
  * @param {string} str
  * @param {number} maxLen
@@ -178,8 +197,10 @@ module.exports = {
   generateDigits,
   sleep,
   normalizePhone,
+  formatWaNumber,
   truncate,
   escapeHtml,
   parseJSON,
   paginate,
 };
+

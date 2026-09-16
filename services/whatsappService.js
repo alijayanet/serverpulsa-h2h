@@ -1081,6 +1081,79 @@ async function sendAgentWelcomeMessage({ agent, plainPassword, serverUrl }) {
 }
 
 /**
+ * Notifikasi invoice baru untuk pesanan publik (Web Store)
+ */
+async function notifyPublicInvoiceCreated(order, invoiceUrl) {
+  if (!order || !order.buyer_phone) return false;
+  const appName = getSetting('public_store_name', getSetting('app_name', 'Juragan Pulsa'));
+
+  const msg =
+    `*🧾 INVOICE PESANAN TOP-UP - ${appName.toUpperCase()}*\n` +
+    `────────────────────────────\n` +
+    `Halo, terima kasih telah memesan di *${appName}*.\n\n` +
+    `📋 *Rincian Pesanan:*\n` +
+    `• *No. Invoice:* \`${order.invoice_code}\`\n` +
+    `• *Produk:* ${order.product_name}\n` +
+    `• *Tujuan:* \`${order.target_combined}\`\n` +
+    `• *Total Pembayaran:* *${formatRupiah(order.total_amount)}*\n` +
+    `  _(Termasuk kode unik Rp ${order.unique_code})_\n` +
+    `• *Batas Waktu:* 15 Menit\n\n` +
+    `📲 *Buka QRIS & Bayar Di Sini:*\n` +
+    `${invoiceUrl}\n\n` +
+    `_Transfer sesuai nominal tepat agar pesanan otomatis terkirim._`;
+
+  return await sendWhatsAppMessage(order.buyer_phone, msg);
+}
+
+/**
+ * Notifikasi sukses untuk pesanan publik (Web Store)
+ */
+async function notifyPublicOrderSuccess(order) {
+  if (!order || !order.buyer_phone) return false;
+  const appName = getSetting('public_store_name', getSetting('app_name', 'Juragan Pulsa'));
+
+  const msg =
+    `*✅ TOP-UP BERHASIL! - ${appName.toUpperCase()}*\n` +
+    `────────────────────────────\n` +
+    `Pesanan Anda telah berhasil diproses dan dikirim!\n\n` +
+    `📋 *Rincian Transaksi:*\n` +
+    `• *No. Invoice:* \`${order.invoice_code}\`\n` +
+    `• *Produk:* ${order.product_name}\n` +
+    `• *Tujuan:* \`${order.target_combined}\`\n` +
+    `• *Total Bayar:* *${formatRupiah(order.total_amount)}*\n` +
+    `• *Status:* *SUKSES*\n` +
+    (order.sn ? `• *SN / Token:* \`${order.sn}\`\n` : '') +
+    `• *Waktu:* ${formatDateTime(order.completed_at || new Date())}\n\n` +
+    `Terima kasih telah berbelanja di *${appName}*! 🙏\n` +
+    `────────────────────────────`;
+
+  return await sendWhatsAppMessage(order.buyer_phone, msg);
+}
+
+/**
+ * Notifikasi gagal untuk pesanan publik (Web Store)
+ */
+async function notifyPublicOrderFailed(order) {
+  if (!order || !order.buyer_phone) return false;
+  const appName = getSetting('public_store_name', getSetting('app_name', 'Juragan Pulsa'));
+  const csPhone = getSetting('public_cs_whatsapp', getSetting('app_phone', ''));
+
+  const msg =
+    `*⚠️ PESANAN GAGAL DIPROSES - ${appName.toUpperCase()}*\n` +
+    `────────────────────────────\n` +
+    `Pesanan dengan No. Invoice \`${order.invoice_code}\` mengalami kendala dari pihak vendor/provider.\n\n` +
+    `📋 *Rincian:*\n` +
+    `• *Produk:* ${order.product_name}\n` +
+    `• *Tujuan:* \`${order.target_combined}\`\n` +
+    `• *Total:* ${formatRupiah(order.total_amount)}\n` +
+    `• *Keterangan:* ${order.message || 'Gangguan sistem vendor'}\n\n` +
+    (csPhone ? `Silakan hubungi Customer Service kami di WA *${csPhone}* untuk bantuan refund / pemrosesan ulang.` : `Silakan hubungi admin untuk bantuan.`) +
+    `\n────────────────────────────`;
+
+  return await sendWhatsAppMessage(order.buyer_phone, msg);
+}
+
+/**
  * Ambil status koneksi WhatsApp saat ini
  */
 function getConnectionStatus() {
@@ -1102,6 +1175,9 @@ module.exports = {
   sendAgentWelcomeMessage,
   notifyTransactionSuccess,
   notifyDepositApproved,
+  notifyPublicInvoiceCreated,
+  notifyPublicOrderSuccess,
+  notifyPublicOrderFailed,
   getConnectionStatus,
   normalizePhoneDigits
 };

@@ -246,7 +246,7 @@ function processWebhookUpdate({ refId, status, sn = '', message = '', trxId = ''
 /**
  * List transaksi dengan pagination dan filter
  */
-function listTransactions({ agentId = null, status = '', category = '', dateFrom = '', dateTo = '', q = '', page = 1, limit = 20 } = {}) {
+function listTransactions({ agentId = null, status = '', category = '', channel = '', dateFrom = '', dateTo = '', q = '', page = 1, limit = 20 } = {}) {
   const where = [];
   const params = [];
 
@@ -265,10 +265,16 @@ function listTransactions({ agentId = null, status = '', category = '', dateFrom
     params.push(category);
   }
 
+  if (channel) {
+    where.push('t.channel = ?');
+    params.push(channel);
+  }
+
   if (dateFrom) {
     where.push('DATE(t.created_at) >= DATE(?)');
     params.push(dateFrom);
   }
+
 
   if (dateTo) {
     where.push('DATE(t.created_at) <= DATE(?)');

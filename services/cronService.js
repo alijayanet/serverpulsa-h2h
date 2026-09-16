@@ -41,6 +41,15 @@ function startCronJobs() {
           }
         }
       }
+
+      // Expire public orders yang telah lewat batas 15 menit
+      try {
+        const { expireOldPendingOrders } = require('./publicOrderService');
+        const expiredCount = expireOldPendingOrders();
+        if (expiredCount > 0) {
+          logger.info(`[Cron] ${expiredCount} pesanan publik kedaluwarsa dibatalkan.`);
+        }
+      } catch (_) {}
     } catch (err) {
       logger.error('[Cron] Error checking pending transactions:', err);
     }

@@ -73,7 +73,21 @@ router.post('/settings', requireAdminLogin, (req, res) => {
     app_version_name,
     app_download_url,
     app_release_notes,
-    app_force_update
+    app_force_update,
+    public_store_enabled,
+    public_store_name,
+    public_store_tagline,
+    public_store_logo,
+    public_theme_color,
+    public_store_markup,
+    public_store_announcement,
+    public_banner_1,
+    public_banner_2,
+    public_banner_3,
+    public_cs_whatsapp,
+    public_cs_telegram,
+    public_show_apk_download,
+    public_qris_expiry_minutes
   } = req.body;
 
   try {
@@ -96,6 +110,20 @@ router.post('/settings', requireAdminLogin, (req, res) => {
       app_version_name: app_version_name || '1.0.0',
       app_download_url: app_download_url || '/downloads/juragan-pulsa.apk',
       app_release_notes: app_release_notes || '',
+      public_store_enabled: public_store_enabled === '1' ? '1' : '0',
+      public_store_name: public_store_name || app_name || 'Juragan Topup',
+      public_store_tagline: public_store_tagline || 'Top Up Game, Pulsa & Token PLN 24 Jam Otomatis',
+      public_store_logo: public_store_logo || '',
+      public_theme_color: public_theme_color || 'blue',
+      public_store_markup: public_store_markup || '3000',
+      public_store_announcement: public_store_announcement || '',
+      public_banner_1: public_banner_1 || '',
+      public_banner_2: public_banner_2 || '',
+      public_banner_3: public_banner_3 || '',
+      public_cs_whatsapp: public_cs_whatsapp || '',
+      public_cs_telegram: public_cs_telegram || '',
+      public_show_apk_download: public_show_apk_download === '1' ? '1' : '0',
+      public_qris_expiry_minutes: public_qris_expiry_minutes || '15',
     });
 
     // Sinkronkan juga kredensial ke tabel providers
@@ -114,14 +142,18 @@ router.post('/settings', requireAdminLogin, (req, res) => {
       );
     }
 
-    // Terapkan default margin ke seluruh produk di database
-    const { applyGlobalMarkup } = require('../../services/productService');
+    // Terapkan default margin agen ke seluruh produk di database
+    const { applyGlobalMarkup, applyPublicMarkup } = require('../../services/productService');
     const safeMarkup = parseInt(digiflazz_markup || '2000', 10);
     const updatedCount = applyGlobalMarkup(safeMarkup);
 
+    // Terapkan default margin publik ke seluruh produk
+    const safePubMarkup = parseInt(public_store_markup || '3000', 10);
+    applyPublicMarkup(safePubMarkup);
+
     req.session.flash = { 
       type: 'success', 
-      message: `Pengaturan berhasil disimpan. Margin Rp ${safeMarkup.toLocaleString('id-ID')} telah diterapkan ke ${updatedCount} produk.` 
+      message: `Pengaturan berhasil disimpan. Margin Agen (Rp ${safeMarkup.toLocaleString('id-ID')}) & Margin Publik (Rp ${safePubMarkup.toLocaleString('id-ID')}) telah diperbarui.` 
     };
   } catch (err) {
     req.session.flash = { type: 'error', message: err.message };

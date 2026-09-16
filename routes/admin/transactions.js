@@ -11,11 +11,12 @@ const { formatRupiah, formatDateTime } = require('../../utils/helpers');
 
 // GET /admin/transactions
 router.get('/transactions', requireAdminLogin, (req, res) => {
-  const { status = '', category = '', date_from = '', date_to = '', q = '', page = 1 } = req.query;
+  const { status = '', category = '', channel = '', date_from = '', date_to = '', q = '', page = 1 } = req.query;
 
   const result = listTransactions({
     status,
     category,
+    channel,
     dateFrom: date_from,
     dateTo: date_to,
     q,
@@ -28,11 +29,12 @@ router.get('/transactions', requireAdminLogin, (req, res) => {
     activeNav: 'transactions',
     transactions: result.transactions,
     pagination: result.pagination,
-    filter: { status, category, date_from, date_to, q },
+    filter: { status, category, channel, date_from, date_to, q },
     formatRupiah,
     formatDateTime,
   });
 });
+
 
 // GET /admin/transactions/:id
 router.get('/transactions/:id', requireAdminLogin, (req, res) => {

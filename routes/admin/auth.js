@@ -13,8 +13,8 @@ function getAdminService() {
   }
 }
 
-// GET /admin/login
-router.get('/login', (req, res) => {
+// GET /login & /admin/login
+router.get(['/login', '/admin/login'], (req, res) => {
   if (req.session && req.session.adminId) {
     return res.redirect('/admin/dashboard');
   }
@@ -22,8 +22,8 @@ router.get('/login', (req, res) => {
   res.render('auth/login', { title: 'Login Admin', error, layout: false });
 });
 
-// POST /admin/login
-router.post('/login', async (req, res) => {
+// POST /login & /admin/login
+router.post(['/login', '/admin/login'], async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -73,11 +73,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// GET /admin/logout
-router.get('/logout', (req, res) => {
+// GET /logout & /admin/logout
+router.get(['/logout', '/admin/logout'], (req, res) => {
   req.session.destroy((err) => {
     if (err) console.error('[Admin Auth] Session destroy error:', err);
-    res.redirect('/admin/login');
+    res.redirect('/login');
   });
 });
 

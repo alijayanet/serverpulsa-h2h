@@ -23,6 +23,7 @@ async function syncProductsFromProvider(providerId) {
   logger.info(`[Sync] Memulai sync produk dari provider: ${provider.label}`);
 
   const defaultMarkup = parseInt(getSetting('digiflazz_markup', '2000'), 10) || 2000;
+  const defaultPublicMarkup = parseInt(getSetting('public_store_markup', '3000'), 10) || 3000;
   const products = await adapter.syncProducts(provider);
 
   let inserted = 0;
@@ -30,12 +31,12 @@ async function syncProductsFromProvider(providerId) {
   let active = 0;
   let inactive = 0;
 
-  const stmtFind = db.prepare('SELECT id, markup, price_sell, price_modal FROM products WHERE provider_id = ? AND sku = ?');
+  const stmtFind = db.prepare('SELECT id, markup, markup_public, price_sell, price_public, price_modal FROM products WHERE provider_id = ? AND sku = ?');
   const stmtInsert = db.prepare(`
     INSERT INTO products (
       provider_id, sku, product_name, category, brand,
-      price_modal, price_sell, markup, description, is_active, last_sync
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now','localtime'))
+      price_modal, price_sell, markup, price_public, markup_public, description, is_active, last_sync
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now','localtime'))
   `);
   const stmtUpdate = db.prepare(`
     UPDATE products SET
@@ -44,6 +45,7 @@ async function syncProductsFromProvider(providerId) {
       brand = ?,
       price_modal = ?,
       price_sell = ?,
+      price_public = ?,
       is_active = ?,
       description = ?,
       last_sync = datetime('now','localtime')
@@ -59,13 +61,16 @@ async function syncProductsFromProvider(providerId) {
       if (existing) {
         // Keep existing custom markup if defined, otherwise default
         const currentMarkup = existing.markup > 0 ? existing.markup : defaultMarkup;
+        const currentPubMarkup = existing.markup_public > 0 ? existing.markup_public : defaultPublicMarkup;
         const newSellPrice = item.price_modal + currentMarkup;
+        const newPublicPrice = item.price_modal + currentPubMarkup;
         stmtUpdate.run(
           item.product_name,
           item.category || '',
           item.brand || '',
           item.price_modal,
           newSellPrice,
+          newPublicPrice,
           item.is_active ? 1 : 0,
           item.description || '',
           existing.id
@@ -73,6 +78,7 @@ async function syncProductsFromProvider(providerId) {
         updated++;
       } else {
         const sellPrice = item.price_modal + defaultMarkup;
+        const publicPrice = item.price_modal + defaultPublicMarkup;
         stmtInsert.run(
           provider.id,
           item.sku,
@@ -82,6 +88,8 @@ async function syncProductsFromProvider(providerId) {
           item.price_modal,
           sellPrice,
           defaultMarkup,
+          publicPrice,
+          defaultPublicMarkup,
           item.description || '',
           item.is_active ? 1 : 0
         );
@@ -254,7 +262,25 @@ function calculateAgentPrice(product, agent) {
 }
 
 /**
- * Terapkan default markup ke seluruh produk di tabel products
+ * Update markup harga publik produk
+ */
+function setPublicMarkup(sku, markup, providerId = null) {
+  const safeMarkup = Math.max(0, parseInt(markup || 0, 10));
+  const product = getProductBySku(sku, providerId);
+  if (!product) throw new Error('Produk tidak ditemukan');
+
+  const newPublicPrice = product.price_modal + safeMarkup;
+  db.prepare(`
+    UPDATE products
+    SET markup_public = ?, price_public = ?
+    WHERE id = ?
+  `).run(safeMarkup, newPublicPrice, product.id);
+
+  return { ...product, markup_public: safeMarkup, price_public: newPublicPrice };
+}
+
+/**
+ * Terapkan default markup ke seluruh produk di tabel products (Harga Agen)
  * @param {number} markup
  */
 function applyGlobalMarkup(markup) {
@@ -266,6 +292,29 @@ function applyGlobalMarkup(markup) {
   return res.changes;
 }
 
+/**
+ * Terapkan default markup publik ke seluruh produk / kategori tertentu (Harga Publik)
+ * @param {number} markup
+ * @param {string} category
+ */
+function applyPublicMarkup(markup, category = '') {
+  const safeMarkup = Math.max(0, parseInt(markup || 0, 10));
+  let res;
+  if (category) {
+    res = db.prepare(`
+      UPDATE products
+      SET markup_public = ?, price_public = price_modal + ?
+      WHERE category = ?
+    `).run(safeMarkup, safeMarkup, category);
+  } else {
+    res = db.prepare(`
+      UPDATE products
+      SET markup_public = ?, price_public = price_modal + ?
+    `).run(safeMarkup, safeMarkup);
+  }
+  return res.changes;
+}
+
 module.exports = {
   syncProductsFromProvider,
   listProducts,
@@ -273,7 +322,9 @@ module.exports = {
   listBrands,
   getProductBySku,
   setMarkup,
+  setPublicMarkup,
   applyGlobalMarkup,
+  applyPublicMarkup,
   toggleProduct,
   calculateAgentPrice,
 };

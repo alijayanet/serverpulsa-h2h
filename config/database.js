@@ -87,6 +87,8 @@ db.exec(`
     price_modal  INTEGER NOT NULL DEFAULT 0,
     price_sell   INTEGER NOT NULL DEFAULT 0,
     markup       INTEGER DEFAULT 0,
+    price_public INTEGER NOT NULL DEFAULT 0,
+    markup_public INTEGER DEFAULT 0,
     description  TEXT DEFAULT '',
     is_active    INTEGER DEFAULT 1,
     last_sync    DATETIME,
@@ -145,6 +147,38 @@ db.exec(`
     channel           TEXT DEFAULT 'app',
     created_at        DATETIME DEFAULT (datetime('now','localtime')),
     updated_at        DATETIME DEFAULT (datetime('now','localtime'))
+  );
+
+  -- Public Orders (Transaksi Pembeli Publik Tanpa Akun / UniPin Style)
+  CREATE TABLE IF NOT EXISTS public_orders (
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    invoice_code     TEXT NOT NULL UNIQUE,
+    provider_id      INTEGER REFERENCES providers(id),
+    product_sku      TEXT NOT NULL,
+    product_name     TEXT NOT NULL,
+    category         TEXT NOT NULL,
+    brand            TEXT DEFAULT '',
+    target_id        TEXT NOT NULL,
+    target_zone      TEXT DEFAULT '',
+    target_combined  TEXT NOT NULL,
+    buyer_phone      TEXT DEFAULT '',
+    buyer_email      TEXT DEFAULT '',
+    price_modal      INTEGER NOT NULL DEFAULT 0,
+    price_public     INTEGER NOT NULL DEFAULT 0,
+    unique_code      INTEGER NOT NULL DEFAULT 0,
+    total_amount     INTEGER NOT NULL,
+    payment_method   TEXT DEFAULT 'QRIS',
+    qris_payload     TEXT DEFAULT '',
+    status           TEXT DEFAULT 'pending', -- pending, paid, processing, success, failed, expired
+    sn               TEXT DEFAULT '',
+    provider_ref_id  TEXT DEFAULT '',
+    message          TEXT DEFAULT '',
+    wa_notif_sent    INTEGER DEFAULT 0,
+    paid_at          DATETIME,
+    completed_at     DATETIME,
+    expired_at       DATETIME,
+    created_at       DATETIME DEFAULT (datetime('now','localtime')),
+    updated_at       DATETIME DEFAULT (datetime('now','localtime'))
   );
 
   -- Balance Mutations (riwayat perubahan saldo)
@@ -236,6 +270,14 @@ try {
   db.exec("ALTER TABLE admins ADD COLUMN api_token TEXT");
 } catch (_) {}
 
+try {
+  db.exec("ALTER TABLE products ADD COLUMN price_public INTEGER NOT NULL DEFAULT 0");
+} catch (_) {}
+
+try {
+  db.exec("ALTER TABLE products ADD COLUMN markup_public INTEGER DEFAULT 0");
+} catch (_) {}
+
 db.exec(`
   CREATE INDEX IF NOT EXISTS idx_transactions_agent     ON transactions(agent_id, created_at DESC);
   CREATE INDEX IF NOT EXISTS idx_transactions_status    ON transactions(status, created_at DESC);
@@ -248,6 +290,9 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_deposit_req_status     ON deposit_requests(status, created_at DESC);
   CREATE INDEX IF NOT EXISTS idx_deposit_req_code       ON deposit_requests(deposit_code);
   CREATE INDEX IF NOT EXISTS idx_audit_action           ON audit_trail(action, created_at DESC);
+  CREATE INDEX IF NOT EXISTS idx_pub_orders_invoice     ON public_orders(invoice_code);
+  CREATE INDEX IF NOT EXISTS idx_pub_orders_amount      ON public_orders(total_amount, status);
+  CREATE INDEX IF NOT EXISTS idx_pub_orders_status      ON public_orders(status, created_at DESC);
 `);
 
 // ── Seed Data Awal ─────────────────────────────────────────────────────────────
@@ -286,20 +331,34 @@ function seed() {
 
   // Default settings
   const defaultSettings = [
-    ['app_name',             'Juragan Pulsa',  'string'],
-    ['app_phone',            '',               'string'],
-    ['app_address',          '',               'string'],
-    ['session_secret',       require('crypto').randomBytes(32).toString('hex'), 'string'],
-    ['whatsapp_enabled',     '0',              'boolean'],
-    ['whatsapp_admin_numbers', '',             'string'],
-    ['qris_static_enabled',  '1',              'boolean'],
-    ['qris_static_payload',  '00020101021126570011ID.DANA.WWW011893600915346519740402094651974040303UMI51440014ID.CO.QRIS.WWW0215ID10232708012520303UMI5204549953033605802ID5907ALIJAYA6014Kab. Indramayu6105452576304E962', 'string'],
-    ['digiflazz_username',   '',               'string'],
-    ['digiflazz_api_key',    '',               'string'],
-    ['digiflazz_webhook_secret', '',           'string'],
-    ['digiflazz_markup',     '2000',           'number'],
-    ['deposit_min_amount',   '10000',          'number'],
-    ['deposit_code_digits',  '3',              'number'],
+    ['app_name',                  'Juragan Pulsa',  'string'],
+    ['app_phone',                 '',               'string'],
+    ['app_address',               '',               'string'],
+    ['session_secret',            require('crypto').randomBytes(32).toString('hex'), 'string'],
+    ['whatsapp_enabled',          '0',              'boolean'],
+    ['whatsapp_admin_numbers',    '',               'string'],
+    ['qris_static_enabled',       '1',              'boolean'],
+    ['qris_static_payload',       '00020101021126570011ID.DANA.WWW011893600915346519740402094651974040303UMI51440014ID.CO.QRIS.WWW0215ID10232708012520303UMI5204549953033605802ID5907ALIJAYA6014Kab. Indramayu6105452576304E962', 'string'],
+    ['digiflazz_username',        '',               'string'],
+    ['digiflazz_api_key',         '',               'string'],
+    ['digiflazz_webhook_secret',  '',               'string'],
+    ['digiflazz_markup',          '2000',           'number'],
+    ['deposit_min_amount',        '10000',          'number'],
+    ['deposit_code_digits',       '3',              'number'],
+    ['public_store_enabled',      '1',              'boolean'],
+    ['public_store_name',         'Juragan Topup',  'string'],
+    ['public_store_tagline',      'Top Up Game, Pulsa & Token PLN 24 Jam Otomatis', 'string'],
+    ['public_store_logo',         '',               'string'],
+    ['public_theme_color',        'blue',           'string'],
+    ['public_store_markup',       '3000',           'number'],
+    ['public_store_announcement', '⚡ Layanan Top-Up & Pembayaran Otomatis 24 Jam Nonstop! Tanpa Antri & Tanpa Ribet.', 'string'],
+    ['public_banner_1',           '',               'string'],
+    ['public_banner_2',           '',               'string'],
+    ['public_banner_3',           '',               'string'],
+    ['public_cs_whatsapp',        '',               'string'],
+    ['public_cs_telegram',        '',               'string'],
+    ['public_show_apk_download',  '1',              'boolean'],
+    ['public_qris_expiry_minutes','15',             'number'],
   ];
 
   const upsertSetting = db.prepare(`
@@ -310,6 +369,16 @@ function seed() {
     for (const row of rows) upsertSetting.run(...row);
   });
   insertMany(defaultSettings);
+
+  // Pastikan kolom price_public pada seluruh produk terisi
+  try {
+    const pubMarkup = 3000;
+    db.prepare(`
+      UPDATE products 
+      SET markup_public = ?, price_public = price_modal + ? 
+      WHERE price_public IS NULL OR price_public = 0 OR markup_public IS NULL OR markup_public = 0
+    `).run(pubMarkup, pubMarkup);
+  } catch (_) {}
 
   // Sync Digiflazz provider credentials from settings if provider credentials are empty
   const digiUser = db.prepare("SELECT value FROM settings WHERE key = 'digiflazz_username'").get()?.value || '';
