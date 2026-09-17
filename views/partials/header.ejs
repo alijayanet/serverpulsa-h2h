@@ -43,18 +43,18 @@
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
-<body class="min-h-screen flex flex-col font-sans antialiased text-slate-800" data-page="<%= typeof activeNav !== 'undefined' ? activeNav : '' %>">
+<body class="h-screen overflow-hidden flex flex-col font-sans antialiased text-slate-800" data-page="<%= typeof activeNav !== 'undefined' ? activeNav : '' %>">
 
   <!-- Mobile Overlay -->
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
-  <div class="flex flex-1 overflow-hidden h-screen">
+  <div class="flex flex-1 overflow-hidden h-screen w-full">
     
-    <!-- Bespoke Sidebar -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 pro-sidebar flex flex-col transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 lg:static lg:inset-auto">
+    <!-- Bespoke Sidebar (Locked height, sticky, independent scrolling) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 h-screen max-h-screen pro-sidebar flex flex-col transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 lg:static lg:h-screen lg:shrink-0 overflow-hidden shadow-2xl lg:shadow-none">
       
-      <!-- Brand Header -->
-      <div class="h-16 flex items-center justify-between px-5 border-b border-white/5 bg-slate-950/50">
+      <!-- Brand Header (Fixed top of sidebar) -->
+      <div class="h-16 shrink-0 flex items-center justify-between px-5 border-b border-white/5 bg-slate-950/60 z-10">
         <a href="/admin/dashboard" class="flex items-center gap-3 group">
           <img src="/public/images/logo-icon.png" alt="Juragan Pulsa Logo" class="w-8 h-8 rounded-lg shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform object-cover" />
           <div>
@@ -68,8 +68,8 @@
         </a>
       </div>
 
-      <!-- Navigation Scrollable -->
-      <nav class="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
+      <!-- Navigation Scrollable (Independent Scroll Container) -->
+      <nav class="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto overscroll-contain custom-sidebar-nav">
         
         <div class="sidebar-heading">Ringkasan &amp; Transaksi</div>
         
@@ -129,8 +129,8 @@
 
       </nav>
 
-      <!-- Bottom User Profile Card -->
-      <div class="p-3 border-t border-white/5 bg-slate-950/40">
+      <!-- Bottom User Profile Card (Fixed at bottom of sidebar) -->
+      <div class="p-3 shrink-0 border-t border-white/5 bg-slate-950/60 z-10">
         <div class="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between">
           <div class="flex items-center gap-2.5 overflow-hidden">
             <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700/80 flex items-center justify-center font-bold text-xs text-blue-400 font-mono">
@@ -150,11 +150,11 @@
       </div>
     </aside>
 
-    <!-- Main Content Shell -->
-    <div class="flex-1 flex flex-col min-w-0 overflow-y-auto bg-slate-50">
+    <!-- Main Content Shell (Independent Scroll Area) -->
+    <div class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-slate-50 dark:bg-[#090D16]">
       
       <!-- Top Navigation Bar -->
-      <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+      <header class="h-16 shrink-0 bg-white dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
         
         <div class="flex items-center gap-3">
           <button id="mobile-menu-btn" class="btn btn-ghost btn-square btn-sm lg:hidden text-slate-600">

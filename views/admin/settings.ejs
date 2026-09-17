@@ -104,10 +104,15 @@
               </div>
             </div>
 
-            <div class="flex items-center gap-2 pt-1">
+            <div class="space-y-2 pt-1">
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" name="public_show_apk_download" value="1" <%= (settings.public_show_apk_download === '1' || settings.public_show_apk_download === 1 || settings.public_show_apk_download === true) ? 'checked' : '' %> class="checkbox checkbox-xs rounded checkbox-primary" />
                 <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Tampilkan Tombol Download APK Agen di Header &amp; Footer</span>
+              </label>
+
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="public_agent_registration_enabled" value="1" <%= (settings.public_agent_registration_enabled === '1' || settings.public_agent_registration_enabled === 1 || settings.public_agent_registration_enabled === true || settings.public_agent_registration_enabled === undefined) ? 'checked' : '' %> class="checkbox checkbox-xs rounded checkbox-primary" />
+                <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Izinkan Pendaftaran Agen Mandiri dari Web Publik (<code class="text-sky-500 font-mono text-[10px]">/register</code>)</span>
               </label>
             </div>
           </div>
@@ -257,8 +262,61 @@
             </div>
           </div>
 
-          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
-            <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-0 text-xs font-semibold">Simpan Pengaturan</button>
+          <!-- ── Section: Telegram Bot & Web Live Chat ────────────────────────── -->
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-3.5">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                  <span>✈️ Integrasi Bot Telegram &amp; Web Live Chat</span>
+                  <span class="badge badge-xs bg-sky-600 text-white font-mono text-[9px]">Live Chat Bridge</span>
+                </h4>
+                <p class="text-[11px] text-slate-400">Jembatan chat dua arah: Pengunjung web chat langsung $\leftrightarrow$ Admin membalas via aplikasi Telegram.</p>
+              </div>
+              <div>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="telegram_livechat_enabled" value="1" <%= (settings.telegram_livechat_enabled === '1' || settings.telegram_livechat_enabled === 1 || settings.telegram_livechat_enabled === true || settings.telegram_livechat_enabled === 'true') ? 'checked' : '' %> class="checkbox checkbox-xs rounded checkbox-primary" />
+                  <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Aktifkan Live Chat</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Telegram Bot Token</label>
+                <input type="password" name="telegram_bot_token" id="telegram_bot_token_input" value="<%= settings.telegram_bot_token || '' %>" placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ..." class="input-fintech w-full font-mono text-xs" />
+                <p class="text-[10px] text-slate-400 mt-1">Dapatkan token dari <a href="https://t.me/BotFather" target="_blank" class="text-blue-500 underline font-semibold">@BotFather</a> di Telegram.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Telegram Chat ID / Group ID</label>
+                <input type="text" name="telegram_chat_id" id="telegram_chat_id_input" value="<%= settings.telegram_chat_id || '' %>" placeholder="Contoh: 123456789 atau -1001234567890" class="input-fintech w-full font-mono text-xs" />
+                <p class="text-[10px] text-slate-400 mt-1">ID akun Anda atau ID grup CS (cek via bot <a href="https://t.me/userinfobot" target="_blank" class="text-blue-500 underline font-semibold">@userinfobot</a>).</p>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Pesan Sambutan Otomatis (Welcome Message)</label>
+              <input type="text" name="livechat_welcome_message" value="<%= settings.livechat_welcome_message || 'Halo! Selamat datang di Juragan Pulsa. Ada yang bisa kami bantu?' %>" class="input-fintech w-full text-xs" />
+              <p class="text-[10px] text-slate-400 mt-1">Pesan otomatis yang langsung muncul pertama kali saat pengunjung membuka widget live chat.</p>
+            </div>
+
+            <div class="p-3 bg-sky-50/50 dark:bg-sky-950/20 border border-sky-200/70 dark:border-sky-900/40 rounded-xl flex items-center justify-between">
+              <div class="text-[11px] text-slate-600 dark:text-slate-300">
+                <span class="font-semibold text-sky-700 dark:text-sky-300">💡 Cara Kerja:</span> Pesan dari pengunjung web langsung masuk ke Telegram Admin. Admin cukup tekan <b>Reply (Balas)</b> di Telegram, dan balasan otomatis muncul di layar web pengunjung secara real-time!
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div>
+              <button type="button" onclick="document.getElementById('modal-test-telegram').showModal()" class="btn btn-sm btn-outline btn-info text-xs font-semibold gap-1">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.3-.616.3l.204-3.041 5.54-5.008c.241-.213-.054-.333-.373-.12l-6.85 4.314-2.95-.923c-.642-.202-.654-.64.135-.95l11.536-4.446c.535-.195 1.002.128.874.902z"/></svg>
+                <span>Uji Kirim Pesan Telegram</span>
+              </button>
+            </div>
+            <button type="submit" class="btn btn-sm bg-slate-900 hover:bg-slate-800 text-white border-0 font-semibold px-6 shadow-sm">
+              Simpan Pengaturan
+            </button>
           </div>
 
         </form>
@@ -653,6 +711,38 @@
     }
   }
 </script>
+
+  <!-- Modal Test Telegram Connection -->
+  <dialog id="modal-test-telegram" class="modal">
+    <div class="modal-box bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 max-w-md">
+      <h3 class="font-bold text-base text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+        <span>✈️ Uji Kirim Pesan Telegram</span>
+      </h3>
+      <p class="text-xs text-slate-500 mb-4">Pastikan Anda sudah memulai chat ke bot (klik <b>/start</b>) atau bot sudah dimasukkan ke grup CS sebelum menguji pengiriman pesan.</p>
+      
+      <form action="/admin/settings/telegram/test" method="POST" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Telegram Bot Token</label>
+          <input type="password" name="telegram_bot_token" id="modal_tele_token" value="<%= settings.telegram_bot_token || '' %>" required placeholder="123456789:ABCdef..." class="input-fintech w-full font-mono text-xs" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Telegram Chat ID / Group ID</label>
+          <input type="text" name="telegram_chat_id" id="modal_tele_chat_id" value="<%= settings.telegram_chat_id || '' %>" required placeholder="Contoh: 123456789 atau -1001234567890" class="input-fintech w-full font-mono text-xs" />
+        </div>
+
+        <div class="modal-action flex justify-end gap-2 pt-2">
+          <button type="button" onclick="document.getElementById('modal-test-telegram').close()" class="btn btn-sm btn-ghost text-xs">Batal</button>
+          <button type="submit" class="btn btn-sm bg-sky-600 hover:bg-sky-700 text-white border-0 text-xs font-semibold gap-1.5">
+            <span>Kirim Pesan Tes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
 
 <%- include('../partials/footer') %>
 
