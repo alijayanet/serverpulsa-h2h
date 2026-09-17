@@ -63,6 +63,25 @@ body {
   border-right: 1px solid var(--sidebar-border);
 }
 
+.custom-sidebar-nav {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+.custom-sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+.custom-sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
 .sidebar-heading {
   font-size: 0.65rem;
   font-weight: 700;
