@@ -35,7 +35,7 @@ Aplikasi ini dikembangkan dan dikelola secara profesional oleh:
 | **Nama Pengembang / Vendor** | **ALIJAYA NET** |
 | **WhatsApp / Telepon** | [**081947215703**](https://wa.me/6281947215703) *(Chat Langsung)* |
 | **Repository Resmi** | [github.com/alijayanet/serverpulsa-h2h](https://github.com/alijayanet/serverpulsa-h2h) |
-| **Web Pulsa** | [JuraganPlusa](https://juraganpulsa.alijaya.com) |
+| **Web Pulsa** | [JuraganPlusa online 24jam](https://juraganpulsa.alijaya.com) |
 | **Layanan** | Setup Server Pulsa H2H, Custom APK Branding Konter, Integrasi API Payment & Provider, Konsultasi Server Mandiri |
 
 ---
